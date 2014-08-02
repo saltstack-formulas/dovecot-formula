@@ -2,9 +2,13 @@
 dovecot-formula
 ===============
 
-A saltstack formula that installs and configures the dovecot IMAP server. It is currently designed to support debian
-or ubuntu layout of the dovecot configuration files. The dovecot packages must be specified (imapd is installed by
-default). Config file content (where needed) is stored in pillar (see pillar.example).
+A saltstack formula that installs and configures the dovecot IMAP server. It currently supports Debian
+or Ubuntu layout of the dovecot configuration files in etc. The dovecot packages must be specified (imapd is installed by
+default if nothing is specified in pillar). Config file content (where needed) is stored in pillar (see pillar.example).
+
+.. note::
+
+Any help, suggestions if this works / how this works for other distributions are welcome.
 
 .. code::
 
