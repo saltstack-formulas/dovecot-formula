@@ -8,6 +8,8 @@ dovecot_packages:
 {% for name in dovecot.packages %}
       - dovecot-{{ name }}
 {% endfor %}
+    - watch_in:
+      - service: dovecot_service
 
 {% if salt['pillar.get']('dovecot:config:local', False) %}
 /etc/dovecot/local.conf:
@@ -56,9 +58,6 @@ dovecot_service:
     - name: dovecot
     - watch:
       - file: /etc/dovecot/local.conf
-{% if config.ldap_config %}
-      - file: /etc/dovecot/dovecot-ldap.conf.ext
-{% endif %}
       - pkg: dovecot_packages
 
 {% endif %}
