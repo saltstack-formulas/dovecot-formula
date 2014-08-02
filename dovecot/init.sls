@@ -1,10 +1,64 @@
-{% from "template/map.jinja" import template with context %}
+{% from "dovecot/map.jinja" import dovecot with context %}
 
-template:
-  pkg:
-    - installed
-    - name: {{ template.pkg }}
-  service:
-    - running
-    - name: {{ template.service }}
-    - enable: True
+{% if grains['os_family'] == 'Debian' %}
+
+dovecot_packages:
+  pkg.installed:
+    - names:
+{% for name in dovecot.packages %}
+      - dovecot-{{ name }}
+{% endfor %}
+
+{% if salt['pillar.get']('dovecot:config:local', False) %}
+/etc/dovecot/local.conf:
+  file.managed:
+    - contents_pillar: 'dovecot:config:local'
+    - backup: minion
+    - watch_in:
+      - service: dovecot_service
+{% endif %}
+
+{% if salt['pillar.get']('dovecot:config:dovecotext', False) %}
+{% for name in salt['pillar.get']('dovecot:config:dovecotext') %}
+/etc/dovecot/dovecot-{{ name }}.conf.ext:
+  file.managed:
+    - contents_pillar: 'dovecot:config:dovecotext:{{ name }}'
+    - backup: minion
+    - watch_in:
+      - service: dovecot_service
+{% endfor %}
+{% endif %}
+
+{% if salt['pillar.get']('dovecot:config:conf', False) %}
+{% for name in salt['pillar.get']('dovecot:config:conf') %}
+/etc/dovecot/conf.d/dovecot-{{ name }}.conf:
+  file.managed:
+    - contents_pillar: 'dovecot:config:conf:{{ name }}'
+    - backup: minion
+    - watch_in:
+      - service: dovecot_service
+{% endfor %}
+{% endif %}
+
+{% if salt['pillar.get']('dovecot:config:confext', False) %}
+{% for name in salt['pillar.get']('dovecot:config:confext') %}
+/etc/dovecot/conf.d/{{ name }}.conf.ext:
+  file.managed:
+    - contents_pillar: 'dovecot:config:confext:{{ name }}'
+    - backup: minion
+    - watch_in:
+      - service: dovecot_service
+{% endfor %}
+{% endif %}
+
+dovecot_service:
+  service.running:
+    - name: dovecot
+    - watch:
+      - file: /etc/dovecot/local.conf
+{% if config.ldap_config %}
+      - file: /etc/dovecot/dovecot-ldap.conf.ext
+{% endif %}
+      - pkg: dovecot_packages
+
+{% endif %}

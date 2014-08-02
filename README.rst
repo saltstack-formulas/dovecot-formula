@@ -1,14 +1,18 @@
-================
-template-formula
-================
+===============
+dovecot-formula
+===============
 
-A saltstack formula that is empty. It has dummy content to help with a quick
-start on a new formula.
+A saltstack formula that installs and configures the dovecot IMAP server. It is currently designed to support debian
+or ubuntu layout of the dovecot configuration files. The dovecot packages must be specified (imapd is installed by
+default). Config file content (where needed) is stored in pillar (see pillar.example).
 
-.. note::
+/etc/dovecot/local.conf in dovecot:config:local
 
-    See the full `Salt Formulas installation and usage instructions
-    <http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_.
+e.g.:
+/etc/dovecot/dovecot-ldap.conf.ext in dovecot:config:dovecotext:ldap
+/etc/dovecot/conf.d/auth-ldap.conf.ext in dovecot:config:confext:ldap
+/etc/dovecot/conf.d/10-ldap.conf in dovecot:config:conf:10-ldap
+
 
 Available states
 ================
@@ -16,7 +20,7 @@ Available states
 .. contents::
     :local:
 
-``template``
+``dovecot``
 ------------
 
-Installs the template package, and starts the associated template service.
+Installs and configures the dovecot package, and starts the associated dovecot service.

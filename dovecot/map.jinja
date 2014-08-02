@@ -1,7 +1,10 @@
-{% set template = salt['grains.filter_by']({
-    'default': {
-        'pkg': 'template',
-        'service': 'template',
-        'config': '/etc/template.conf',
+{% set dovecot = salt['grains.filter_by']({
+    'Debian': {
+        config:
+            local: False,
+            dovecotext: False,
+            confext: False,
+            conf: False
+            'pkgs': ['imapd']},
     },
-}, merge=salt['pillar.get']('template:lookup')) %}
+}, merge=salt['pillar.get']('dovecot:lookup')) %}
