@@ -13,33 +13,37 @@ dovecot_packages:
 
 /etc/dovecot/local.conf:
   file.managed:
-    - contents_pillar: 'dovecot:config:local'
+    - contents: |
+        {{ dovecot.config.local | indent(8) }}
     - backup: minion
     - watch_in:
       - service: dovecot_service
 
-{% for name in salt['pillar.get']('dovecot:config:dovecotext', []) %}
+{% for name in dovecot.config.dovecotext %}
 /etc/dovecot/dovecot-{{ name }}.conf.ext:
   file.managed:
-    - contents_pillar: 'dovecot:config:dovecotext:{{ name }}'
+    - contents: |
+        {{ dovecot.config.dovecotext[name] | indent(8) }}
     - backup: minion
     - watch_in:
       - service: dovecot_service
 {% endfor %}
 
-{% for name in salt['pillar.get']('dovecot:config:conf', []) %}
+{% for name in dovecot.config.conf %}
 /etc/dovecot/conf.d/dovecot-{{ name }}.conf:
   file.managed:
-    - contents_pillar: 'dovecot:config:conf:{{ name }}'
+    - contents: |
+        {{ dovecot.config.conf[name] | indent(8) }}
     - backup: minion
     - watch_in:
       - service: dovecot_service
 {% endfor %}
 
-{% for name in salt['pillar.get']('dovecot:config:confext', []) %}
+{% for name in dovecot.config.confext %}
 /etc/dovecot/conf.d/{{ name }}.conf.ext:
   file.managed:
-    - contents_pillar: 'dovecot:config:confext:{{ name }}'
+    - contents: |
+        {{ dovecot.config.confext[name] | indent(8) }}
     - backup: minion
     - watch_in:
       - service: dovecot_service
