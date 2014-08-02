@@ -6,10 +6,6 @@ A saltstack formula that installs and configures the dovecot IMAP server. It cur
 or Ubuntu layout of the dovecot configuration files in etc. The dovecot packages must be specified (imapd is installed by
 default if nothing is specified in pillar). Config file content (where needed) is stored in pillar (see pillar.example).
 
-.. note::
-
-Any help, suggestions if this works / how this works for other distributions are welcome.
-
 .. code::
 
   /etc/dovecot/local.conf in dovecot:config:local
@@ -22,6 +18,10 @@ e.g.:
   /etc/dovecot/conf.d/auth-ldap.conf.ext in dovecot:config:confext:ldap
   /etc/dovecot/conf.d/10-ldap.conf in dovecot:config:conf:10-ldap
 
+
+.. note::
+
+Any help, suggestions if this works / how this works for other distributions are welcome.
 
 Available states
 ================
