@@ -10,6 +10,7 @@ default). Config file content (where needed) is stored in pillar (see pillar.exa
   /etc/dovecot/local.conf in dovecot:config:local
 
 e.g.:
+
 .. code::
   /etc/dovecot/dovecot-ldap.conf.ext in dovecot:config:dovecotext:ldap
   /etc/dovecot/conf.d/auth-ldap.conf.ext in dovecot:config:confext:ldap
