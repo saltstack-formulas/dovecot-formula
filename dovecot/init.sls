@@ -11,17 +11,14 @@ dovecot_packages:
     - watch_in:
       - service: dovecot_service
 
-{% if salt['pillar.get']('dovecot:config:local', False) %}
 /etc/dovecot/local.conf:
   file.managed:
     - contents_pillar: 'dovecot:config:local'
     - backup: minion
     - watch_in:
       - service: dovecot_service
-{% endif %}
 
-{% if salt['pillar.get']('dovecot:config:dovecotext', False) %}
-{% for name in salt['pillar.get']('dovecot:config:dovecotext') %}
+{% for name in salt['pillar.get']('dovecot:config:dovecotext', []) %}
 /etc/dovecot/dovecot-{{ name }}.conf.ext:
   file.managed:
     - contents_pillar: 'dovecot:config:dovecotext:{{ name }}'
@@ -29,10 +26,8 @@ dovecot_packages:
     - watch_in:
       - service: dovecot_service
 {% endfor %}
-{% endif %}
 
-{% if salt['pillar.get']('dovecot:config:conf', False) %}
-{% for name in salt['pillar.get']('dovecot:config:conf') %}
+{% for name in salt['pillar.get']('dovecot:config:conf', []) %}
 /etc/dovecot/conf.d/dovecot-{{ name }}.conf:
   file.managed:
     - contents_pillar: 'dovecot:config:conf:{{ name }}'
@@ -40,10 +35,8 @@ dovecot_packages:
     - watch_in:
       - service: dovecot_service
 {% endfor %}
-{% endif %}
 
-{% if salt['pillar.get']('dovecot:config:confext', False) %}
-{% for name in salt['pillar.get']('dovecot:config:confext') %}
+{% for name in salt['pillar.get']('dovecot:config:confext', []) %}
 /etc/dovecot/conf.d/{{ name }}.conf.ext:
   file.managed:
     - contents_pillar: 'dovecot:config:confext:{{ name }}'
@@ -51,7 +44,6 @@ dovecot_packages:
     - watch_in:
       - service: dovecot_service
 {% endfor %}
-{% endif %}
 
 dovecot_service:
   service.running:
