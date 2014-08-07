@@ -18,6 +18,8 @@ dovecot_packages:
     - backup: minion
     - watch_in:
       - service: dovecot_service
+    - require:
+      - pkg: dovecot_packages
 
 {% for name in dovecot.config.dovecotext %}
 /etc/dovecot/dovecot-{{ name }}.conf.ext:
@@ -27,6 +29,8 @@ dovecot_packages:
     - backup: minion
     - watch_in:
       - service: dovecot_service
+    - require:
+      - pkg: dovecot_packages
 {% endfor %}
 
 {% for name in dovecot.config.conf %}
@@ -37,6 +41,8 @@ dovecot_packages:
     - backup: minion
     - watch_in:
       - service: dovecot_service
+    - require:
+      - pkg: dovecot_packages
 {% endfor %}
 
 {% for name in dovecot.config.confext %}
@@ -47,6 +53,8 @@ dovecot_packages:
     - backup: minion
     - watch_in:
       - service: dovecot_service
+    - require:
+      - pkg: dovecot_packages
 {% endfor %}
 
 dovecot_service:
@@ -55,5 +63,6 @@ dovecot_service:
     - watch:
       - file: /etc/dovecot/local.conf
       - pkg: dovecot_packages
-
+    - require:
+      - pkg: dovecot_packages
 {% endif %}

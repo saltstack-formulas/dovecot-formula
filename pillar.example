@@ -2,7 +2,7 @@ dovecot:
   lookup:
       packages:
         - imapd
-        - managedsieve
+        - managesieved
         - sieve
         - ldap
 
@@ -27,7 +27,7 @@ dovecot:
             auth_cache_size = 10M
             auth_cache_ttl = 1 hour
             auth_mechanisms = plain
-            !include conf.d/auth-ldap.conf.ext
+            !include conf.d/auth-system.conf.ext
             # logging
             log_timestamp = "%Y-%m-%d %H:%M:%S "
             # mail
@@ -46,10 +46,6 @@ dovecot:
                 ssl = yes
               }
             }
-            # ssl
-            ssl = yes
-            ssl_cert = </etc/ssl/example.com.pack.crt
-            ssl_key = </etc/ssl/example.com.key
             # lda
             postmaster_address = postmaster@example.com
             hostname = example.com
