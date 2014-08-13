@@ -34,7 +34,7 @@ dovecot_packages:
 {% endfor %}
 
 {% for name in dovecot.config.conf %}
-/etc/dovecot/conf.d/dovecot-{{ name }}.conf:
+/etc/dovecot/conf.d/{{ name }}.conf:
   file.managed:
     - contents: |
         {{ dovecot.config.conf[name] | indent(8) }}
