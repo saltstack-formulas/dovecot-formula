@@ -8,4 +8,4 @@ RUN echo "file_client: local" > /etc/salt/minion.d/local.conf && \
     echo "base:" > /srv/pillar/top.sls  && \
     echo "  '*':" >> /srv/pillar/top.sls  && \
     echo "    - example" >> /srv/pillar/top.sls && \
-    salt-call --local state.sls dovecot | tee log.txt && grep "Failed:    0" log.txt
+    salt-call --local --retcode-passthrough state.sls dovecot
