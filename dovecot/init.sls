@@ -1,12 +1,10 @@
 {% from "dovecot/map.jinja" import dovecot with context %}
 
-{% if grains['os_family'] == 'Debian' %}
-
 dovecot_packages:
   pkg.installed:
     - names:
 {% for name in dovecot.packages %}
-      - dovecot-{{ name }}
+      - {{ name }}
 {% endfor %}
     - watch_in:
       - service: dovecot_service
@@ -65,4 +63,3 @@ dovecot_service:
       - pkg: dovecot_packages
     - require:
       - pkg: dovecot_packages
-{% endif %}
