@@ -6,6 +6,15 @@
             'confext': {},
             'conf': {},
             },
-        'packages': ['imapd'],
+        'packages': ['dovecot-imapd'],
+    },
+    'Gentoo': {
+        'config': {
+            'local': '# no customization',
+            'dovecotext': {},
+            'confext': {},
+            'conf': {},
+            },
+        'packages': ['net-mail/dovecot'],
     },
 }, merge=salt['pillar.get']('dovecot:lookup')) %}
