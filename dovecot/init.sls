@@ -4,7 +4,7 @@ dovecot_packages:
   pkg.installed:
     - names:
 {% for name in dovecot.packages %}
-      - {{ name }}
+      - dovecot-{{ name }}
 {% endfor %}
     - watch_in:
       - service: dovecot_service
