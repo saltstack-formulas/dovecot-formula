@@ -1,10 +1,10 @@
 dovecot:
   lookup:
       packages:
-        - imapd
-        - managesieved
-        - sieve
-        - ldap
+        - dovecot-imapd
+        - dovecot-managesieved
+        - dovecot-sieve
+        - dovecot-ldap
 
       config:
         dovecotext:
