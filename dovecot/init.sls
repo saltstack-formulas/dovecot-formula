@@ -3,7 +3,6 @@
 dovecot_packages:
   pkg.installed:
     - pkgs: {{ dovecot.packages }}
-{% endfor %}
     - watch_in:
       - service: dovecot_service
 
