@@ -17,4 +17,13 @@
             },
         'packages': ['net-mail/dovecot'],
     },
+    'RedHat': {
+        'config': {
+            'local': '# no customization',
+            'dovecotext': {},
+            'confext': {},
+            'conf': {},
+            },
+         'packages': ['dovecot','dovecot-pigeonhole'],
+    },
 }, merge=salt['pillar.get']('dovecot:lookup')) %}
