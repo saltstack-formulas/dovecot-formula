@@ -52,6 +52,36 @@ dovecot_packages:
       - pkg: dovecot_packages
 {% endfor %}
 
+{% for name in dovecot.config.ssl_certs %}
+/etc/ssl/private/dovecot-{{ name }}.crt:
+  file.managed:
+    - contents: |
+        {{ dovecot.config.ssl_certs[name] | indent(8) }}
+    - user: nobody
+    - group: nobody
+    - mode: 444
+    - backup: minion
+    - watch_in:
+      - service: dovecot_service
+    - require:
+      - pkg: dovecot_packages
+{% endfor %}
+
+{% for name in dovecot.config.ssl_keys %}
+/etc/ssl/private/dovecot-{{ name }}.key:
+  file.managed:
+    - contents: |
+        {{ dovecot.config.ssl_keys[name] | indent(8) }}
+    - user: nobody
+    - group: nobody
+    - mode: 400
+    - backup: minion
+    - watch_in:
+      - service: dovecot_service
+    - require:
+      - pkg: dovecot_packages
+{% endfor %}
+
 dovecot_service:
   service.running:
     - name: dovecot
