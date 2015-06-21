@@ -17,4 +17,13 @@
             },
         'packages': ['net-mail/dovecot'],
     },
+    'Arch': {
+        'config': {
+            'local': '# no customization',
+            'dovecotext': {},
+            'confext': {},
+            'conf': {},
+            },
+        'packages': ['dovecot'],
+    },
 }, merge=salt['pillar.get']('dovecot:lookup')) %}
