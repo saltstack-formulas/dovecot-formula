@@ -1,6 +1,7 @@
 {% set dovecot = salt['grains.filter_by']({
     'Debian': {
         'config': {
+            'filename': 'local',
             'local': '# no customization',
             'dovecotext': {},
             'confext': {},
@@ -10,6 +11,7 @@
     },
     'Gentoo': {
         'config': {
+            'filename': 'local',
             'local': '# no customization',
             'dovecotext': {},
             'confext': {},
@@ -19,6 +21,7 @@
     },
     'Arch': {
         'config': {
+            'filename': 'dovecot',
             'local': '# no customization',
             'dovecotext': {},
             'confext': {},

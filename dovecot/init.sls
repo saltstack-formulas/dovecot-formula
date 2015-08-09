@@ -6,11 +6,7 @@ dovecot_packages:
     - watch_in:
       - service: dovecot_service
 
-{% if grains['os'] == 'Arch' %}
-/etc/dovecot/dovecot.conf:
-{% else %}
-/etc/dovecot/local.conf:
-{% endif %}
+/etc/dovecot/{{ dovecot.config.filename }}.conf:
   file.managed:
     - contents: |
         {{ dovecot.config.local | indent(8) }}
@@ -90,11 +86,7 @@ dovecot_service:
   service.running:
     - name: dovecot
     - watch:
-{% if grains['os'] == 'Arch' %}
-      - file: /etc/dovecot/dovecot.conf
-{% else %}
-      - file: /etc/dovecot/local.conf
-{% endif %}
+      - file: /etc/dovecot/{{ dovecot.config.filename }}.conf
       - pkg: dovecot_packages
     - require:
       - pkg: dovecot_packages
