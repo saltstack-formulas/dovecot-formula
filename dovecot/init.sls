@@ -9,18 +9,18 @@ dovecot_packages:
 /etc/dovecot/{{ dovecot.config.filename }}.conf:
   file.managed:
     - contents: |
-        {{ dovecot.config.local | indent(8) }}
+        {{ salt['pillar.get']('dovecot:config:local','# managed by salt') | indent(8) }}
     - backup: minion
     - watch_in:
       - service: dovecot_service
     - require:
       - pkg: dovecot_packages
 
-{% for name in dovecot.config.dovecotext %}
+{% for name, content in salt['pillar.get']('dovecot:config:dovecotext',{}).items() %}
 /etc/dovecot/dovecot-{{ name }}.conf.ext:
   file.managed:
     - contents: |
-        {{ dovecot.config.dovecotext[name] | indent(8) }}
+        {{ content | indent(8) }}
     - backup: minion
     - watch_in:
       - service: dovecot_service
@@ -28,11 +28,11 @@ dovecot_packages:
       - pkg: dovecot_packages
 {% endfor %}
 
-{% for name in dovecot.config.conf %}
+{% for name, content in salt['pillar.get']('dovecot:config:conf',{}).items() %}
 /etc/dovecot/conf.d/{{ name }}.conf:
   file.managed:
     - contents: |
-        {{ dovecot.config.conf[name] | indent(8) }}
+        {{ content | indent(8) }}
     - backup: minion
     - watch_in:
       - service: dovecot_service
@@ -40,7 +40,7 @@ dovecot_packages:
       - pkg: dovecot_packages
 {% endfor %}
 
-{% for name in dovecot.config.confext %}
+{% for name, content in salt['pillar.get']('dovecot:config:confext',{}).items() %}
 /etc/dovecot/conf.d/{{ name }}.conf.ext:
   file.managed:
     - contents: |
@@ -52,12 +52,11 @@ dovecot_packages:
       - pkg: dovecot_packages
 {% endfor %}
 
-{% if dovecot.config.ssl_certs is defined and dovecot.config.ssl_certs is iterable %}
-{% for name in dovecot.config.ssl_certs %}
+{% for name, content in salt['pillar.get']('dovecot:config:ssl_certs',{}).items() %}
 /etc/ssl/private/dovecot-{{ name }}.crt:
   file.managed:
     - contents: |
-        {{ dovecot.config.ssl_certs[name] | indent(8) }}
+        {{ content | indent(8) }}
     - user: nobody
     - group: nobody
     - mode: 444
@@ -67,10 +66,8 @@ dovecot_packages:
     - require:
       - pkg: dovecot_packages
 {% endfor %}
-{% endif %}
 
-{% if dovecot.config.ssl_keys is defined and dovecot.config.ssl_keys is iterable %}
-{% for name in dovecot.config.ssl_keys %}
+{% for name, content in salt['pillar.get']('dovecot:config:ssl_keys',{}).items() %}
 /etc/ssl/private/dovecot-{{ name }}.key:
   file.managed:
     - contents: |
@@ -84,7 +81,6 @@ dovecot_packages:
     - require:
       - pkg: dovecot_packages
 {% endfor %}
-{% endif %}
 
 dovecot_service:
   service.running:

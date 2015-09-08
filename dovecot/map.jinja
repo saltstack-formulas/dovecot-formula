@@ -29,4 +29,14 @@
             },
         'packages': ['dovecot'],
     },
+    'RedHat': {
+        'config': {
+            'filename': 'local',
+            'local': '# no customization',
+            'dovecotext': {},
+            'confext': {},
+            'conf': {},
+            },
+         'packages': ['dovecot','dovecot-pigeonhole'],
+    },
 }, merge=salt['pillar.get']('dovecot:lookup')) %}
