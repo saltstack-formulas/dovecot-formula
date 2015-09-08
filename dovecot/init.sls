@@ -52,6 +52,7 @@ dovecot_packages:
       - pkg: dovecot_packages
 {% endfor %}
 
+{% if dovecot.config.ssl_certs is defined and dovecot.config.ssl_certs is iterable %}
 {% for name in dovecot.config.ssl_certs %}
 /etc/ssl/private/dovecot-{{ name }}.crt:
   file.managed:
@@ -66,7 +67,9 @@ dovecot_packages:
     - require:
       - pkg: dovecot_packages
 {% endfor %}
+{% endif %}
 
+{% if dovecot.config.ssl_keys is defined and dovecot.config.ssl_keys is iterable %}
 {% for name in dovecot.config.ssl_keys %}
 /etc/ssl/private/dovecot-{{ name }}.key:
   file.managed:
@@ -81,6 +84,7 @@ dovecot_packages:
     - require:
       - pkg: dovecot_packages
 {% endfor %}
+{% endif %}
 
 dovecot_service:
   service.running:
