@@ -6,6 +6,7 @@ dovecot:
         - dovecot-sieve
         - dovecot-ldap
 
+      enable_service_control: True
       config:
         dovecotext:
           ldap: |
