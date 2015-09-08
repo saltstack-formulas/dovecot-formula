@@ -6,17 +6,15 @@ dovecot_packages:
     - watch_in:
       - service: dovecot_service
 
-{% if 'local' in salt['pillar.get']('dovecot:config', {}) %}
 /etc/dovecot/{{ dovecot.config.filename }}.conf:
   file.managed:
     - contents: |
-        {{ salt['pillar.get']('dovecot:config:local',{}) | indent(8) }}
+        {{ salt['pillar.get']('dovecot:config:local','# managed by salt') | indent(8) }}
     - backup: minion
     - watch_in:
       - service: dovecot_service
     - require:
       - pkg: dovecot_packages
-{% endif %}
 
 {% for name, content in salt['pillar.get']('dovecot:config:dovecotext',{}).items() %}
 /etc/dovecot/dovecot-{{ name }}.conf.ext:
