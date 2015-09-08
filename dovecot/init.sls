@@ -44,7 +44,7 @@ dovecot_packages:
 /etc/dovecot/conf.d/{{ name }}.conf.ext:
   file.managed:
     - contents: |
-        {{ dovecot.config.confext[name] | indent(8) }}
+        {{ content | indent(8) }}
     - backup: minion
     - watch_in:
       - service: dovecot_service
@@ -71,7 +71,7 @@ dovecot_packages:
 /etc/ssl/private/dovecot-{{ name }}.key:
   file.managed:
     - contents: |
-        {{ dovecot.config.ssl_keys[name] | indent(8) }}
+        {{ content | indent(8) }}
     - user: nobody
     - group: nobody
     - mode: 400
