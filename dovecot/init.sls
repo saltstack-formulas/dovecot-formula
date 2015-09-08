@@ -94,4 +94,9 @@ dovecot_service:
       - pkg: dovecot_packages
     - require:
       - pkg: dovecot_packages
+{% if dovecot.enable_service_control is defined and dovecot.enable_service_control == false %}
+    # never run this state
+    - onlyif:
+      - /bin/false
+{% endif %}
 
