@@ -57,8 +57,8 @@ dovecot_packages:
   file.managed:
     - contents: |
         {{ content | indent(8) }}
-    - user: nobody
-    - group: nobody
+    - user: root
+    - group: root
     - mode: 444
     - backup: minion
     - watch_in:
@@ -72,8 +72,8 @@ dovecot_packages:
   file.managed:
     - contents: |
         {{ content | indent(8) }}
-    - user: nobody
-    - group: nobody
+    - user: root
+    - group: root
     - mode: 400
     - backup: minion
     - watch_in:
