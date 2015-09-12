@@ -1,4 +1,5 @@
 dovecot:
+  enable_service_control: True
   config:
     local: |
       # main
