@@ -53,12 +53,12 @@ dovecot_packages:
 {% endfor %}
 
 {% for name, content in salt['pillar.get']('dovecot:config:ssl_certs',{}).items() %}
-/etc/ssl/private/dovecot-{{ name }}.crt:
+{{ dovecot.config.ssl_certs_dir }}/dovecot-{{ name }}.crt:
   file.managed:
     - contents: |
         {{ content | indent(8) }}
-    - user: nobody
-    - group: nobody
+    - user: root
+    - group: root
     - mode: 444
     - backup: minion
     - watch_in:
@@ -68,12 +68,12 @@ dovecot_packages:
 {% endfor %}
 
 {% for name, content in salt['pillar.get']('dovecot:config:ssl_keys',{}).items() %}
-/etc/ssl/private/dovecot-{{ name }}.key:
+{{ dovecot.config.ssl_keys_dir }}/dovecot-{{ name }}.key:
   file.managed:
     - contents: |
         {{ content | indent(8) }}
-    - user: nobody
-    - group: nobody
+    - user: root
+    - group: root
     - mode: 400
     - backup: minion
     - watch_in:
