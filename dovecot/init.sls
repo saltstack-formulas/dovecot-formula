@@ -9,14 +9,14 @@ dovecot_packages:
 /etc/dovecot/{{ dovecot.config.filename }}.conf:
   file.managed:
     - contents: |
-        {{ salt['pillar.get']('dovecot:config:local','# managed by salt') | indent(8) }}
+        {{ dovecot.config.local | indent(8) }}
     - backup: minion
     - watch_in:
       - service: dovecot_service
     - require:
       - pkg: dovecot_packages
 
-{% for name, content in salt['pillar.get']('dovecot:config:dovecotext',{}).items() %}
+{% for name, content in dovecot.config.dovecotext.items() %}
 /etc/dovecot/dovecot-{{ name }}.conf.ext:
   file.managed:
     - contents: |
@@ -28,7 +28,7 @@ dovecot_packages:
       - pkg: dovecot_packages
 {% endfor %}
 
-{% for name, content in salt['pillar.get']('dovecot:config:conf',{}).items() %}
+{% for name, content in dovecot.config.conf.items() %}
 /etc/dovecot/conf.d/{{ name }}.conf:
   file.managed:
     - contents: |
@@ -40,7 +40,7 @@ dovecot_packages:
       - pkg: dovecot_packages
 {% endfor %}
 
-{% for name, content in salt['pillar.get']('dovecot:config:confext',{}).items() %}
+{% for name, content in dovecot.config.confext.items() %}
 /etc/dovecot/conf.d/{{ name }}.conf.ext:
   file.managed:
     - contents: |
@@ -52,7 +52,7 @@ dovecot_packages:
       - pkg: dovecot_packages
 {% endfor %}
 
-{% for name, content in salt['pillar.get']('dovecot:config:ssl_certs',{}).items() %}
+{% for name, content in dovecot.config.ssl_certs.items() %}
 {{ dovecot.config.ssl_certs_dir }}/dovecot-{{ name }}.crt:
   file.managed:
     - contents: |
@@ -67,7 +67,7 @@ dovecot_packages:
       - pkg: dovecot_packages
 {% endfor %}
 
-{% for name, content in salt['pillar.get']('dovecot:config:ssl_keys',{}).items() %}
+{% for name, content in dovecot.config.ssl_keys.items() %}
 {{ dovecot.config.ssl_keys_dir }}/dovecot-{{ name }}.key:
   file.managed:
     - contents: |
@@ -90,7 +90,7 @@ dovecot_service:
       - pkg: dovecot_packages
     - require:
       - pkg: dovecot_packages
-{% if 'enable_service_control' in salt['pillar.get']('dovecot') and salt['pillar.get']('dovecot:enable_service_control') == false %}
+{% if 'enable_service_control' in dovecot and dovecot.enable_service_control == false %}
     # never run this state
     - onlyif:
       - /bin/false
