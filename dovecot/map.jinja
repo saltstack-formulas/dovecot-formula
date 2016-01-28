@@ -56,4 +56,18 @@
             },
          'packages': ['dovecot','dovecot-pigeonhole'],
     },
+    'default': {
+        'config': {
+            'filename': 'local',
+            'local': '# no customization',
+            'dovecotext': {},
+            'confext': {},
+            'conf': {},
+            'ssl_certs': {},
+            'ssl_keys': {},
+            'ssl_certs_dir': '/etc/ssl/private',
+            'ssl_keys_dir': '/etc/ssl/private',
+           },
+        'packages': ['dovecot-core','dovecot-imapd'],
+    },
 }, merge=salt['pillar.get']('dovecot:lookup')) %}
