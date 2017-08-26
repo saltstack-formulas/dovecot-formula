@@ -2,7 +2,7 @@
 
 dovecot_packages:
   pkg.installed:
-    - pkgs: {{ dovecot.packages }}
+    - pkgs: {{ dovecot.packages + salt['pillar.get']('dovecot:extra_packages', []) }}
     - watch_in:
       - service: dovecot_service
 
