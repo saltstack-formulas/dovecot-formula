@@ -1,4 +1,7 @@
 dovecot:
+  extra_packages:
+    - dovecot-sieve
+
   lookup:
     enable_service_control: True
     config:
