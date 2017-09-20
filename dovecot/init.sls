@@ -90,6 +90,9 @@ dovecot_service:
       - pkg: dovecot_packages
     - require:
       - pkg: dovecot_packages
+{% if dovecot.get('service_persistent', True) %}
+    - enable: True
+{% endif %}
 {% if 'enable_service_control' in dovecot and dovecot.enable_service_control == false %}
     # never run this state
     - onlyif:
