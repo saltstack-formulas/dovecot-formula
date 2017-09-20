@@ -22,6 +22,9 @@ dovecot_packages:
     - contents: |
         {{ content | indent(8) }}
     - backup: minion
+    - user: root
+    - group: root
+    - mode: 600
     - watch_in:
       - service: dovecot_service
     - require:
