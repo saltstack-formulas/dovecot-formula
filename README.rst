@@ -2,9 +2,9 @@
 dovecot-formula
 ===============
 
-A salt formula that installs and configures the dovecot IMAP server. It currently supports Debian
-or Ubuntu layout of the dovecot configuration files in /etc. Dovecot packages must be specified (imapd is installed by
-default if nothing is specified in pillar). Config file content (where needed) is stored in pillar (see pillar.example).
+A salt formula that installs and configures the dovecot IMAP server. It currently supports an Arch, Debian/Ubuntu, Gentoo or
+Red Hat styled layout of the dovecot configuration files in /etc. 
+Config file content (where needed) is stored in pillar (see pillar.example).
 
 Config file to pillar mappings:
 ===============================
