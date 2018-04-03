@@ -23,7 +23,7 @@ dovecot_packages:
         {{ content | indent(8) }}
     - backup: minion
     - user: root
-    - group: root
+    - group: {{ dovecot.root_group }}
     - mode: 600
     - watch_in:
       - service: dovecot_service
@@ -61,7 +61,7 @@ dovecot_packages:
     - contents: |
         {{ content | indent(8) }}
     - user: root
-    - group: root
+    - group: {{ dovecot.root_group }}
     - mode: 444
     - backup: minion
     - watch_in:
@@ -76,7 +76,7 @@ dovecot_packages:
     - contents: |
         {{ content | indent(8) }}
     - user: root
-    - group: root
+    - group: {{ dovecot.root_group }}
     - mode: 400
     - backup: minion
     - watch_in:

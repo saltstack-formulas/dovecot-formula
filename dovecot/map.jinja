@@ -12,6 +12,7 @@
             'ssl_keys_dir': '/etc/ssl/private',
            },
         'packages': ['dovecot-core','dovecot-imapd'],
+        'root_group': 'root',
     },
     'Gentoo': {
         'config': {
@@ -26,6 +27,7 @@
             'ssl_keys_dir': '/etc/ssl/private',
            },
         'packages': ['net-mail/dovecot'],
+        'root_group': 'root',
     },
     'Arch': {
         'config': {
@@ -41,6 +43,7 @@
 
             },
         'packages': ['dovecot'],
+        'root_group': 'root',
     },
     'RedHat': {
         'config': {
@@ -54,7 +57,8 @@
             'ssl_certs_dir': '/etc/pki/dovecot/certs',
             'ssl_keys_dir': '/etc/pki/dovecot/private',
             },
-         'packages': ['dovecot','dovecot-pigeonhole'],
+        'packages': ['dovecot','dovecot-pigeonhole'],
+        'root_group': 'root',
     },
     'FreeBSD': {
         'config': {
@@ -69,6 +73,7 @@
             'ssl_keys_dir': '/usr/local/etc/ssl/private',
            },
         'packages': ['dovecot'],
+        'root_group': 'wheel',
     },
     'default': {
         'config': {
@@ -83,5 +88,6 @@
             'ssl_keys_dir': '/etc/ssl/private',
            },
         'packages': ['dovecot-core','dovecot-imapd'],
+        'root_group': 'root',
     },
 }, merge=salt['pillar.get']('dovecot:lookup')) %}
