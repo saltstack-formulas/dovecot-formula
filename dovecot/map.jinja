@@ -56,6 +56,20 @@
             },
          'packages': ['dovecot','dovecot-pigeonhole'],
     },
+    'FreeBSD': {
+        'config': {
+            'filename': 'local',
+            'local': '# no customization',
+            'dovecotext': {},
+            'confext': {},
+            'conf': {},
+            'ssl_certs': {},
+            'ssl_keys': {},
+            'ssl_certs_dir': '/usr/local/etc/ssl/certs',
+            'ssl_keys_dir': '/usr/local/etc/ssl/private',
+           },
+        'packages': ['dovecot'],
+    },
     'default': {
         'config': {
             'filename': 'local',
