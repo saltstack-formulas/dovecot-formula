@@ -1,6 +1,7 @@
 {% set dovecot = salt['grains.filter_by']({
     'Debian': {
         'config': {
+            'base': '/etc/dovecot',
             'filename': 'local',
             'local': '# no customization',
             'dovecotext': {},
@@ -16,6 +17,7 @@
     },
     'Gentoo': {
         'config': {
+            'base': '/etc/dovecot',
             'filename': 'local',
             'local': '# no customization',
             'dovecotext': {},
@@ -31,6 +33,7 @@
     },
     'Arch': {
         'config': {
+            'base': '/etc/dovecot',
             'filename': 'dovecot',
             'local': '# no customization',
             'dovecotext': {},
@@ -47,6 +50,7 @@
     },
     'RedHat': {
         'config': {
+            'base': '/etc/dovecot',
             'filename': 'local',
             'local': '# no customization',
             'dovecotext': {},
@@ -62,6 +66,7 @@
     },
     'FreeBSD': {
         'config': {
+            'base': '/usr/local/etc/dovecot',
             'filename': 'local',
             'local': '# no customization',
             'dovecotext': {},
@@ -77,6 +82,7 @@
     },
     'default': {
         'config': {
+            'base': '/etc/dovecot',
             'filename': 'local',
             'local': '# no customization',
             'dovecotext': {},

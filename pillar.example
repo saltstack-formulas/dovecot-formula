@@ -95,6 +95,31 @@ dovecot:
             # File contains a list of usernames, one per line
             args = /etc/dovecot/deny-users
           }
+        # see below: passwd_files
+        auth-sql: |
+          passdb {
+            driver = passwd-file
+            args = username_format=%u /etc/dovecot/auth.d/%d/passwd
+          }
+          # If you don't have any user-specific settings, you can avoid the user_query
+          # by using userdb static instead of userdb sql, for example:
+          # <doc/wiki/UserDatabase.Static.txt>
+          userdb {
+            driver = static
+            #args = uid=vmail gid=vmail home=/var/vmail/%u
+            args = uid=5000 gid=5000 home=/home/vmail/%d/%n allow_all_users=yes
+          }
+
+      # See:
+      # - https://wiki.dovecot.org/AuthDatabase/PasswdFile
+      # - https://wiki.dovecot.org/Authentication/PasswordSchemes
+      passwd_files:
+        # Will create {{ dovecot.config.base }}/auth.d/example.tld.passwd
+        example.tld: |
+          user1:{BLF-CRYPT}HASH
+          user2:{BLF-CRYPT}HASH::::::allow_nets=192.168.0.0/24
+
+          
   
       ssl_certs:
         one: |
