@@ -55,7 +55,7 @@ dovecot_packages:
       - pkg: dovecot_packages
 {% endfor %}
 
-{% for domain, content in dovecot.config.passwd_files.items() %}
+{% for domain, content in dovecot.config.get('passwd_files', {}).items() %}
 {% if loop.first %}
 {{ dovecot.config.base }}/auth.d:
   file.directory:
