@@ -1,6 +1,7 @@
 {% set dovecot = salt['grains.filter_by']({
     'Debian': {
         'config': {
+            'base': '/etc/dovecot',
             'filename': 'local',
             'local': '# no customization',
             'dovecotext': {},
@@ -12,9 +13,11 @@
             'ssl_keys_dir': '/etc/ssl/private',
            },
         'packages': ['dovecot-core','dovecot-imapd'],
+        'root_group': 'root',
     },
     'Gentoo': {
         'config': {
+            'base': '/etc/dovecot',
             'filename': 'local',
             'local': '# no customization',
             'dovecotext': {},
@@ -26,9 +29,11 @@
             'ssl_keys_dir': '/etc/ssl/private',
            },
         'packages': ['net-mail/dovecot'],
+        'root_group': 'root',
     },
     'Arch': {
         'config': {
+            'base': '/etc/dovecot',
             'filename': 'dovecot',
             'local': '# no customization',
             'dovecotext': {},
@@ -41,9 +46,11 @@
 
             },
         'packages': ['dovecot'],
+        'root_group': 'root',
     },
     'RedHat': {
         'config': {
+            'base': '/etc/dovecot',
             'filename': 'local',
             'local': '# no customization',
             'dovecotext': {},
@@ -54,10 +61,28 @@
             'ssl_certs_dir': '/etc/pki/dovecot/certs',
             'ssl_keys_dir': '/etc/pki/dovecot/private',
             },
-         'packages': ['dovecot','dovecot-pigeonhole'],
+        'packages': ['dovecot','dovecot-pigeonhole'],
+        'root_group': 'root',
+    },
+    'FreeBSD': {
+        'config': {
+            'base': '/usr/local/etc/dovecot',
+            'filename': 'local',
+            'local': '# no customization',
+            'dovecotext': {},
+            'confext': {},
+            'conf': {},
+            'ssl_certs': {},
+            'ssl_keys': {},
+            'ssl_certs_dir': '/usr/local/etc/ssl/certs',
+            'ssl_keys_dir': '/usr/local/etc/ssl/private',
+           },
+        'packages': ['dovecot'],
+        'root_group': 'wheel',
     },
     'default': {
         'config': {
+            'base': '/etc/dovecot',
             'filename': 'local',
             'local': '# no customization',
             'dovecotext': {},
@@ -69,5 +94,6 @@
             'ssl_keys_dir': '/etc/ssl/private',
            },
         'packages': ['dovecot-core','dovecot-imapd'],
+        'root_group': 'root',
     },
 }, merge=salt['pillar.get']('dovecot:lookup')) %}

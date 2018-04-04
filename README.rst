@@ -20,6 +20,7 @@ e.g.:
   /etc/dovecot/dovecot-ldap.conf.ext in dovecot:config:dovecotext:ldap
   /etc/dovecot/conf.d/auth-ldap.conf.ext in dovecot:config:confext:ldap
   /etc/dovecot/conf.d/10-ldap.conf in dovecot:config:conf:10-ldap
+  /etc/dovecot/auth.d/example.tld.passwd in dovecot:config:passwd_files:example.tld
 
 
 .. note::

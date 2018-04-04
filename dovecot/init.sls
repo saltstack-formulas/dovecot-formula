@@ -6,7 +6,7 @@ dovecot_packages:
     - watch_in:
       - service: dovecot_service
 
-/etc/dovecot/{{ dovecot.config.filename }}.conf:
+{{ dovecot.config.base }}/{{ dovecot.config.filename }}.conf:
   file.managed:
     - contents: |
         {{ dovecot.config.local | indent(8) }}
@@ -17,13 +17,13 @@ dovecot_packages:
       - pkg: dovecot_packages
 
 {% for name, content in dovecot.config.dovecotext.items() %}
-/etc/dovecot/dovecot-{{ name }}.conf.ext:
+{{ dovecot.config.base }}/dovecot-{{ name }}.conf.ext:
   file.managed:
     - contents: |
         {{ content | indent(8) }}
     - backup: minion
     - user: root
-    - group: root
+    - group: {{ dovecot.root_group }}
     - mode: 600
     - watch_in:
       - service: dovecot_service
@@ -32,7 +32,7 @@ dovecot_packages:
 {% endfor %}
 
 {% for name, content in dovecot.config.conf.items() %}
-/etc/dovecot/conf.d/{{ name }}.conf:
+{{ dovecot.config.base }}/conf.d/{{ name }}.conf:
   file.managed:
     - contents: |
         {{ content | indent(8) }}
@@ -44,8 +44,30 @@ dovecot_packages:
 {% endfor %}
 
 {% for name, content in dovecot.config.confext.items() %}
-/etc/dovecot/conf.d/{{ name }}.conf.ext:
+{{ dovecot.config.base }}/conf.d/{{ name }}.conf.ext:
   file.managed:
+    - contents: |
+        {{ content | indent(8) }}
+    - backup: minion
+    - watch_in:
+      - service: dovecot_service
+    - require:
+      - pkg: dovecot_packages
+{% endfor %}
+
+{% for domain, content in dovecot.config.passwd_files.items() %}
+{% if loop.first %}
+{{ dovecot.config.base }}/auth.d:
+  file.directory:
+    - user: root
+    - group: dovecot
+    - mode: 750
+{% endif %}
+{{ dovecot.config.base }}/auth.d/{{ domain }}.passwd:
+  file.managed:
+    - user: root
+    - group: dovecot
+    - mode: 640
     - contents: |
         {{ content | indent(8) }}
     - backup: minion
@@ -61,7 +83,7 @@ dovecot_packages:
     - contents: |
         {{ content | indent(8) }}
     - user: root
-    - group: root
+    - group: {{ dovecot.root_group }}
     - mode: 444
     - backup: minion
     - watch_in:
@@ -76,7 +98,7 @@ dovecot_packages:
     - contents: |
         {{ content | indent(8) }}
     - user: root
-    - group: root
+    - group: {{ dovecot.root_group }}
     - mode: 400
     - backup: minion
     - watch_in:
@@ -89,7 +111,7 @@ dovecot_service:
   service.running:
     - name: dovecot
     - watch:
-      - file: /etc/dovecot/{{ dovecot.config.filename }}.conf
+      - file: {{ dovecot.config.base }}/{{ dovecot.config.filename }}.conf
       - pkg: dovecot_packages
     - require:
       - pkg: dovecot_packages
