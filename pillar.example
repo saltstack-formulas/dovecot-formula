@@ -114,7 +114,7 @@ dovecot:
       # - https://wiki.dovecot.org/AuthDatabase/PasswdFile
       # - https://wiki.dovecot.org/Authentication/PasswordSchemes
       passwd_files:
-        # Will create {{ dovecot.config.base }}/auth.d/example.tld.passwd
+        # Will create ''dovecot.config.base''/auth.d/example.tld.passwd
         example.tld: |
           user1:{BLF-CRYPT}HASH
           user2:{BLF-CRYPT}HASH::::::allow_nets=192.168.0.0/24
