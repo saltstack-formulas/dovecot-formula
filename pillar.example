@@ -5,6 +5,10 @@ dovecot:
   lookup:
     enable_service_control: True
     service_persistent: True
+    ssl:
+      dhparam:
+        path: /etc/dovecot/dh.pem
+        numbits: 2048
     config:
       local: |
         # main

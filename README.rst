@@ -37,3 +37,8 @@ Available states
 ------------
 
 Installs and configures the dovecot package, and ensures that the associated dovecot service is running.
+
+``dovecot.dh``
+--------------
+
+Creates Diffie-Hellman Parameters at the path defined in Pillar `dovecot:ssl:dhparam:path`.
