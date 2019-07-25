@@ -124,3 +124,14 @@ dovecot_service:
       - /bin/false
 {% endif %}
 
+# This is just here so we can force a restart via a watch_in.
+dovecot_service_restart:
+  service.running:
+    - name: dovecot
+    - watch:
+      - pkg: dovecot_packages
+{% if 'enable_service_control' in dovecot and dovecot.enable_service_control == false %}
+    # never run this state
+    - onlyif:
+      - /bin/false
+{% endif %}
