@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 dovecot:
   extra_packages:
     - dovecot-sieve

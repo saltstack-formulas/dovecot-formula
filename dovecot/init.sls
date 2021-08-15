@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=sls
+
 {% from "dovecot/map.jinja" import dovecot with context %}
 
 dovecot_packages:
