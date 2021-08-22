@@ -18,8 +18,9 @@ dovecot-formula
    :scale: 100%
    :target: https://github.com/pre-commit/pre-commit
 
-A SaltStack formula that is empty. It has dummy content to help with a quick
-start on a new formula and it serves as a style guide.
+A salt formula that installs and configures the dovecot IMAP server. It currently supports an Arch, Debian/Ubuntu, Gentoo or
+Red Hat styled layout of the dovecot configuration files in /etc. 
+Config file content (where needed) is stored in pillar (see pillar.example).
 
 .. contents:: **Table of Contents**
    :depth: 1
@@ -81,9 +82,30 @@ Available states
 
 *Meta-state (This is a state that includes other states)*.
 
-This installs the dovecot package,
-manages the dovecot configuration file and then
-starts the associated dovecot service.
+Installs and configures the dovecot package, and ensures that the associated dovecot service is running.
+
+Config file to pillar mappings:
+===============================
+
+.. code::
+
+  /etc/dovecot/local.conf in dovecot:config:local
+
+e.g.:
+
+.. code::
+
+  /etc/dovecot/dovecot-ldap.conf.ext in dovecot:config:dovecotext:ldap
+  /etc/dovecot/conf.d/auth-ldap.conf.ext in dovecot:config:confext:ldap
+  /etc/dovecot/conf.d/10-ldap.conf in dovecot:config:conf:10-ldap
+  /etc/dovecot/auth.d/example.tld.passwd in dovecot:config:passwd_files:example.tld
+
+
+.. note::
+
+  Any help, suggestions if this works / how this works for other distributions are welcome.
+
+
 
 Testing
 -------
