@@ -1,0 +1,9 @@
+name: dovecot
+os: Debian, Ubuntu, Raspbian, RedHat, Fedora, CentOS, Amazon, Oracle, Suse, openSUSE, Gentoo, Funtoo, Arch, Manjaro, Alpine, FreeBSD
+os_family: Debian, RedHat, Suse, Gentoo, Arch, Alpine, FreeBSD
+version: 1.0.0
+release: 1
+minimum_version: 2019.2
+summary: dovecot formula
+description: Formula to install and configure dovecot server
+top_level_dir: dovecot
