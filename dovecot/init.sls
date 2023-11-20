@@ -112,6 +112,7 @@ dovecot_service:
     - name: dovecot
     - watch:
       - file: {{ dovecot.config.base }}/{{ dovecot.config.filename }}.conf
+      - file: {{ dovecot.config.base }}/conf.d/*
       - pkg: dovecot_packages
     - require:
       - pkg: dovecot_packages
