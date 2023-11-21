@@ -1,4 +1,4 @@
-{% from "dovecot/map.jinja" import dovecot with context %}
+{% from "dovecot/map.sls" import dovecot with context %}
 
 dovecot_packages:
   pkg.installed:
@@ -24,7 +24,7 @@ dovecot_packages:
     - backup: minion
     - user: root
     - group: {{ dovecot.root_group }}
-    - mode: 600
+    - mode: "0600"
     - watch_in:
       - service: dovecot_service
     - require:
@@ -61,13 +61,13 @@ dovecot_packages:
   file.directory:
     - user: root
     - group: dovecot
-    - mode: 750
+    - mode: "0750"
 {% endif %}
 {{ dovecot.config.base }}/auth.d/{{ domain }}.passwd:
   file.managed:
     - user: root
     - group: dovecot
-    - mode: 640
+    - mode: "0640"
     - contents: |
         {{ content | indent(8) }}
     - backup: minion
@@ -84,7 +84,7 @@ dovecot_packages:
         {{ content | indent(8) }}
     - user: root
     - group: {{ dovecot.root_group }}
-    - mode: 444
+    - mode: "0444"
     - backup: minion
     - watch_in:
       - service: dovecot_service
@@ -99,7 +99,7 @@ dovecot_packages:
         {{ content | indent(8) }}
     - user: root
     - group: {{ dovecot.root_group }}
-    - mode: 400
+    - mode: "0400"
     - backup: minion
     - watch_in:
       - service: dovecot_service
