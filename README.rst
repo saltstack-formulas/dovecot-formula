@@ -17,6 +17,7 @@ e.g.:
 
 .. code::
 
+  /etc/dovecot/dovecot-sql.conf.ext in dovecot:config:dovecotext:sql
   /etc/dovecot/dovecot-ldap.conf.ext in dovecot:config:dovecotext:ldap
   /etc/dovecot/conf.d/auth-ldap.conf.ext in dovecot:config:confext:ldap
   /etc/dovecot/conf.d/10-ldap.conf in dovecot:config:conf:10-ldap
