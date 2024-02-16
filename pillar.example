@@ -71,6 +71,14 @@ dovecot:
         ssl_key = </etc/ssl/private/dovecot-one.key
     
       dovecotext:
+        sql: |
+          driver: mysql
+          connect = host=localhost dbname=postfixadmin user=dovecot password=supersecret 
+          default_pass_scheme = MD5_CRYPT
+          password_query = SELECT username AS user,password FROM mailbox WHERE username = '%u' AND active='1'
+          # UID and GID must be those of the postfix user
+          # Also, make sure dovecot user belongs to the postfix group
+          user_query = SELECT CONCAT('/var/mail/vmail/', maildir) AS home, 108 AS uid, 113 AS gid, CONCAT('*:bytes=', quota) AS quota_rule FROM mailbox WHERE username = '%u' AND active='1'
         ldap: |
           hosts = 0.0.0.0
           base = dc=example, dc=com
