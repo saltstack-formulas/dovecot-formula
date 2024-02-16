@@ -39,7 +39,7 @@
             'dovecotext': {},
             'confext': {},
             'conf': {},
-            'ssl_certs': {},            
+            'ssl_certs': {},
             'ssl_keys': {},
             'ssl_certs_dir': '/etc/ssl/private',
             'ssl_keys_dir': '/etc/ssl/private',
