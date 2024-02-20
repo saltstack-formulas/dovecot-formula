@@ -46,12 +46,12 @@ or anyway not ideal in my opinion.
 E.g., the `login_trusted_networks` setting for Dovecot is difficult to safely fetch from the minion;
 therefore, the best solution I could think of for now is adding a section to the pillar, like this:
 
-```yaml
+``yaml
 postfix:
   mynetworks:
     - 172.16.1.0/24
     - 192.168.0.0/24
-```
+``
 
 The list of networks will be then be expanded, joined, and injected into Dovecot's conf files appropriately.
 
