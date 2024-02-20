@@ -9,7 +9,8 @@ dovecot:
       local: |
         # main
         listen = *
-        login_trusted_networks = 192.168.100.0/24
+        # Trusted networks are a space separated list
+        login_trusted_networks = {{grains['postfix']['mynetworks'] | join(' ')}}
         shutdown_clients = yes
   
         # auth
