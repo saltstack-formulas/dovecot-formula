@@ -25,7 +25,7 @@ e.g.:
 
 .. note::
 
-Any help, suggestions if this works / how this works for other distributions are welcome.
+  Any help, suggestions if this works / how this works for other distributions are welcome.
 
 Available states
 ================
