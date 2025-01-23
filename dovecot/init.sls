@@ -110,6 +110,9 @@ dovecot_packages:
 dovecot_service:
   service.running:
     - name: dovecot
+{% if dovecot.get('service_reload', True) %}
+    - reload: True
+{% endif %}
     - watch:
       - file: {{ dovecot.config.base }}/{{ dovecot.config.filename }}.conf
       - file: {{ dovecot.config.base }}/conf.d/*

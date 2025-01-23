@@ -5,6 +5,7 @@ dovecot:
   lookup:
     enable_service_control: True
     service_persistent: True
+    service_reload: True
     config:
       local: |
         # main
